@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Snake Game | PlayCasper.io</title>
+        <link rel="stylesheet" href="/src/snake.css">
+    </head>
+
+	<body>
+        <div id="container">
+            <img src="https://playcasper.io/wp-content/uploads/2022/09/Monkey7a.png" class="logo">
+            <div id="high_score">Highest Score: (retrieving from block chain)</div>
+            <div id="score">Current Score: </div>
+            <div id="game-container">
+                <canvas id="snakeboard"></canvas>
+            </div>
+            <div id="footer"></div>
+        </div>
+        
+        <div class="countdown" id="countdown">
+        </div>
+        
+        <div class="popup" id="popup">
+            <a href="#" id="popupClose" title="Close" class="modal-close">X</a>
+            <h1>Game Over</h1>
+        
+            <div class="center" id="saveScoreDiv" style="display:none">
+                <p>Click here to save your score</p>
+                <button type="button" id="saveScore">Save</button>
+                <div id="submission_response">&nbsp;</div>
+                <div id="users_high_score">&nbsp;</div>
+            </div>
+            
+            <div class="center" id="casperSignerDiv">
+                <p>Sign in to Casper Signer to save your score!</p>
+                <p><img class="center" style="width:100px" src="/src/casper-signer.png"></p>
+                <button type="button" id="signIn">Sign In</button>
+                <button type="button" onclick="location.href='https://chrome.google.com/webstore/detail/casper-signer/djhndpllfiibmcdbnmaaahkhchcoijce'">Download Signer</button>
+            </div>
+        </div>	
+
+        <script src="/src/snake.js"></script>
+        <script src="/src/main.mjs"></script>
+    </body>
+</html>

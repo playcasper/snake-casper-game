@@ -1,0 +1,126 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: grey;
+    color: white;
+    font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-weight: 600;	
+}
+
+.logo {
+    width:14vh;
+    position:fixed;
+    left: 10px;
+    top: 10px;
+}
+
+#container {
+    height: 100%;
+}
+
+#game-container {
+    height: 80%;
+}
+
+#footer {
+    height: 5%;
+}
+
+#high_score {
+    height: 5%;
+    text-align: center;
+    font-size: 4vh;
+}
+
+#score {
+    height: 10%;
+    text-align: center;
+    font-size: 7vh;
+}
+
+#snakeboard {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    box-shadow: 0 0 30px black;
+    border: 1px solid black;
+}
+
+#submission_response {
+    font-size: 2vh;
+    color: blue;
+}
+
+#users_high_score {
+    font-size: 2vh;
+    color: blue;
+}
+
+.countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45vh;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 10vh;
+    color: black;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45vh;
+    transform: translate(-50%, -50%);
+    background-color: lightsalmon;
+    text-align: center;
+    box-shadow: 0 0 20px black;
+    border: 1px solid grey;
+    border-radius: 20px;
+
+    h1 {
+        font-size: 150%;
+        margin: 40px 0 15px;
+    }	
+}
+
+.center {
+    margin: auto;
+    width: 75%;
+}
+
+button {
+    color: rgb(255, 255, 255);
+    background: rgb(230, 51, 42);
+    width: 175px;
+    height: 40px;
+    margin: 0 12px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.blur {
+	filter: blur(4px);
+}
+
+.modal-close {
+    color: #000000;
+    line-height: 50px;
+    font-size: 80%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 70px;
+    text-decoration: none;
+    &:hover {
+        color: black;
+    }
+}
+
+.casperlogo{
+    width: 100px;
+}
