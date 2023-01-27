@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/snake.html'));
 });
 
+app.get('/test', (req, res) => {
+    res.sendFile(path.join(__dirname, '/test.html'));
+});
+
 // Get the highscore from the block chain
 app.post('/highscore', async (req, res) => {
     var hash = req.body.value;
@@ -52,6 +56,42 @@ app.post('/highscore', async (req, res) => {
 
     // Return the highscore
     res.status(200).send(highscore);
+});
+
+// Get all the scores from the block chain
+app.post('/allscores', async (req, res) => {
+    var hash = req.body.value;
+
+    // Get the state root hash
+    const latestBlock = await casperService.getLatestBlockInfo();
+    const stateRootHash = await casperService.getStateRootHash(latestBlock.block.hash);
+
+    // Get the highscore from the contract
+    const result = await casperService.getBlockState(
+        stateRootHash,
+        hash,
+        ['highscore']
+    );
+
+    // Parse the json response to get the highscore
+    var obj = JSON.parse(JSON.stringify(result));
+
+    allScores = "";
+    
+    for (let i = 0; i < obj.Contract.namedKeys.length; i++) {
+
+        const scoresData = await casperService.getBlockState(
+            stateRootHash,
+            hash,
+            ['highscore',obj.Contract.namedKeys[i].name]
+        );
+        
+        highscore = JSON.parse(JSON.stringify(scoresData)).CLValue;
+        allScores += obj.Contract.namedKeys[i].name + " : " + highscore + "<br>";
+    } 
+
+    // Return the highscore
+    res.status(200).send(allScores);
 });
 
 // Get the users highscore from the block chain
@@ -101,7 +141,7 @@ app.post("/savehighscore", async (req, res) => {
     });
      
     // Get the contract hash
-    const contractHash = decodeBase16("05bb1bf3856b1854437a5dc5d30d223b556cfb0f387d0c0247e235cad66f4c1f");
+    const contractHash = decodeBase16("a63b544149a3274ae7e4479e36951020d5c2db1750b3dd94219757b12aea5f42");
 
     // Configure the deploy with entry point and payment
     const session = DeployUtil.ExecutableDeployItem.newStoredContractByHash(
@@ -110,7 +150,7 @@ app.post("/savehighscore", async (req, res) => {
         args
     );
       
-    let payment = DeployUtil.standardPayment(1000000000);
+    let payment = DeployUtil.standardPayment(2000000000);
      
     const deploy = DeployUtil.makeDeploy(
         deployParams,
