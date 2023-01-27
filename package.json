@@ -7,7 +7,6 @@
   },
   "author": "AJ",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "acorn": "^8.7.1",
     "acorn-import-assertions": "^1.8.0",
