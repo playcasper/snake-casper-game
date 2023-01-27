@@ -3,7 +3,7 @@ var usersHighestScore = 0;
 var deployHash = null;
 var retryCount = 24;
 
-const accountHash = 'account-hash-8de802c6d32f846d34acfd1cce650539822ca465d459a7de4473f76f85ed638a';
+const accountHash = 'account-hash-608102b6354980f2759f810b152376a1c8c2ed1a6c3c98079729126866bf7df2';
 
 // Start by retrieving the highest score 
 getHighScore();
@@ -61,7 +61,7 @@ function getUsersHighScore(hash){
     xhr.open("POST", "/usershighscore", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
-        value: 'hash-05bb1bf3856b1854437a5dc5d30d223b556cfb0f387d0c0247e235cad66f4c1f',
+        value: 'hash-a63b544149a3274ae7e4479e36951020d5c2db1750b3dd94219757b12aea5f42',
         name: hash
     }));
     xhr.onload = function() {
