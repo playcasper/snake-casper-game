@@ -77,6 +77,13 @@ You can deploy the wasm file to your own test block-chain or use the one that ha
 
 ## Running the game
 
+Make sure that Express is installed on your system:
+
+```
+cd snake-casper-game-main
+npm install express
+```
+
 Using NodeJS start the game:
 
 ```
