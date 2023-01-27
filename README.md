@@ -24,27 +24,27 @@ https://snake.playcasper.io/
 
 Play the game. The current highest score is pulled from the Casper Block Chain and is displayed at the top.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_1-1.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_1-1.jpg" width=60% height=60%>
 
 When the game is over you will be asked to save your score on the Casper Block Chain.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_2.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_2.jpg" width=60% height=60%>
 
 If you haven't installed the Casper Signer Extension then you will asked to do so.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_3.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_3.jpg" width=60% height=60%>
 
 The Casper Signer extension will popup. Ensure you are logged in and the extension is connected to the website. You will see your score under the Value field. Sign your deployment by clicking on the "Sign" button.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_4.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_4.jpg" width=60% height=60%>
 
 It can take up to a minute for the score to be saved and a notification will be given. While your score is being saved, your previous highest score will be retrieved from the Block Chain.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_5.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_5.jpg" width=60% height=60%>
 
 If the deployment was successful then you will be notified.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_6.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_6.jpg" width=60% height=60%>
 
 ## Verification
 
@@ -54,7 +54,7 @@ https://testnet.cspr.live/deploys
 
 Select the latest one that corresponds to highscore_set and you will see the status of the deploy.
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_9.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_9.jpg" width=60% height=60%>
 
 # Usage in test environment
 
@@ -115,4 +115,4 @@ Or here locally:
 http://localhost:9000/test
 ```
 
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_8.jpg" width=40% height=40%>
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_8.jpg" width=60% height=60%>
