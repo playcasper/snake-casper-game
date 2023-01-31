@@ -2,8 +2,6 @@ var highestScore = 0;
 var usersHighestScore = 0;
 var deployHash = null;
 
-const accountHash = 'account-hash-608102b6354980f2759f810b152376a1c8c2ed1a6c3c98079729126866bf7df2';
-
 var testCase = 1;
 Tests();
 
@@ -15,7 +13,7 @@ async function Tests(){
     {
         document.getElementById("container").innerHTML = "<p style='color:blue'>TEST 1: Getting current highest score...</p>";
         getHighScore();
-
+        
         if(highestScore > 0)
         {
             document.getElementById("container").innerHTML += "<p style='color:green'>PASSED</p><br>";
@@ -24,12 +22,12 @@ async function Tests(){
         {
             document.getElementById("container").innerHTML += "<p style='color:red'>FAILED</p><br>";
         }
-
+        
         nextTest();
         return;
     }
-
-    // Test 2 - Retrieve all highest scores for each user.
+    
+    // Test 2 - Retrieve all highest scores for each user. 
     // highest_score and highest_score_user values should match those in the list
     if(testCase == 2)
     {
@@ -41,8 +39,8 @@ async function Tests(){
         } catch (error) {
             document.getElementById("container").innerHTML += "<p style='color:red'>FAILED</p><br>";
         }
-
-              nextTest();
+        
+        nextTest();
         return;
     }
 
@@ -50,7 +48,7 @@ async function Tests(){
     if(testCase == 3)
     {
         document.getElementById("container").innerHTML += "<p style='color:blue'>TEST 3: Get the currently signed in user's high score...<br></p>";
-
+        
         if(IsCasperSignerInstalled())
         {
             try {
@@ -59,7 +57,7 @@ async function Tests(){
             } catch (error) {
                 document.getElementById("container").innerHTML += "<p style='color:red'>FAILED</p><br>";
             }
-
+        
             nextTest();
             return;
         }
@@ -68,19 +66,19 @@ async function Tests(){
             document.getElementById("container").innerHTML += "<p style='color:red'>Casper Signer is not installed or working correctly. Tests stopped.</p><br>";
         }
     }
-
+    
     // Test 4 - Setting users score to be lower than high score and checking that score is NOT saved
     if(testCase == 4)
     {
         newTestScore = parseInt(usersHighestScore) - 1;
-
+                
         // Setting users score to be lower than high score and checking that score is not saved
         document.getElementById("container").innerHTML += "<p style='color:blue'>TEST 4: Check that new lower score of " + newTestScore + " is NOT saved...<br></p>";
 
         if(IsCasperSignerInstalled())
         {
             oldUsersHighestScore = usersHighestScore;
-
+            
             // Set lower score for new user
             newTestScore = parseInt(usersHighestScore) - 1;
             SaveScore(newTestScore);
@@ -91,12 +89,12 @@ async function Tests(){
             document.getElementById("container").innerHTML += "<p style='color:red'>Casper Signer is not installed or working correctly. Tests stopped.</p><br>";
         }
     }
-
+    
     // Test 5 - Setting users score to be higher than previous score and checking that score IS saved
     if(testCase == 5)
     {
         await getUsersHighScore();
-
+        
         if(usersHighestScore == oldUsersHighestScore)
         {
             document.getElementById("container").innerHTML += "<br><br><p style='color:green'>PASSED</p>";
@@ -113,7 +111,7 @@ async function Tests(){
         if(IsCasperSignerInstalled())
         {
             oldUsersHighestScore = usersHighestScore;
-
+    
             // Set higher score for new user
             SaveScore(newTestScore);
             return;
@@ -123,11 +121,11 @@ async function Tests(){
             document.getElementById("container").innerHTML += "<p style='color:red'>Casper Signer is not installed or working correctly. Tests stopped.</p><br>";
         }
     }
-
+    
     if(testCase == 6)
     {
         await getUsersHighScore();
-
+            
         if(parseInt(usersHighestScore) == parseInt(oldUsersHighestScore) + 1)
         {
             document.getElementById("container").innerHTML += "<br><br><p style='color:green'>PASSED</p>";
@@ -137,13 +135,13 @@ async function Tests(){
             document.getElementById("container").innerHTML += "<br><br><p style='color:red'>FAILED</p>";
         }
         return;
-    }
+    }    
 }
 
 function nextTest()
 {
     testCase = testCase + 1;
-
+    
     Tests();
 }
 
@@ -152,7 +150,7 @@ function nextTest()
 function IsCasperSignerInstalled()
 {
     installed = typeof window.casperlabsHelper !== "undefined";
-
+    
     if(installed == false)
     {
         document.getElementById("container").innerHTML += "<br><br>Casper Signer is not installed. Please install the Casper Signer from the Chrome store";
@@ -167,14 +165,12 @@ function getHighScore(){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/highscore", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        value: accountHash
-    }));
-
+    xhr.send();
+    
     if (xhr.status === 200) {
         // Update the highest score display
         highestScore = xhr.responseText;
-
+        
         document.getElementById("container").innerHTML += "Highest Score: " + highestScore + "<br>";
     }
 }
@@ -185,9 +181,7 @@ function getAllScores(){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/allscores", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        value: accountHash
-    }));
+    xhr.send();
 
     if (xhr.status === 200) {
         // Update the highest score display
@@ -206,7 +200,7 @@ async function getUsersHighScore(){
     const isConnected = await window.casperlabsHelper.isConnected()
 
     usersHighestScore = 0;
-
+    
     if(isConnected){
         // Use the Casper Signer app to get the users public key
         publicHash = 0;
@@ -222,10 +216,9 @@ async function getUsersHighScore(){
         xhr.open("POST", "/usershighscore", false);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
-            value: 'hash-a63b544149a3274ae7e4479e36951020d5c2db1750b3dd94219757b12aea5f42',
             name: publicHash
         }));
-
+        
         if (xhr.status === 200) {
             if(xhr.responseText == "0")
             {
@@ -250,7 +243,7 @@ async function getUsersHighScore(){
 async function SaveScore(score){
     // Call the Casper Signer app to request a connection
     await window.casperlabsHelper.requestConnection();
-
+    
     // Check that the app is connected
     const isConnected = await window.casperlabsHelper.isConnected()
 
@@ -263,22 +256,22 @@ async function SaveScore(score){
             document.getElementById("container").innerHTML += "<p style='color:red'>Not logged in to Casper Signer. Please recify and restart tests.</p><br>";
             return;
         }
-
+        
         // Call function to save the score
         reply = await savetHighScore(publicKey, score);
-
+    
         // Check the status of the reply
         if (reply != "Failed")
         {
             // The reply is good, so use the Casper Signer app to sign the deploy
             const signedDeployJSON = await window.casperlabsHelper.sign(reply, publicKey);
-
+            
             // Post a request to make the deploy
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/deploy", false);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(signedDeployJSON));
-
+            
             if (xhr.status === 200) {
                 if(xhr.responseText == "Error")
                 {
@@ -289,12 +282,12 @@ async function SaveScore(score){
                 {
                     // No errors occurred during the deploy
                     document.getElementById("container").innerHTML += "<br>Your score has been submitted to the Casper blockchain.<br>Waiting 60 seconds for a reply....<br>";
-
+                    
                     setTimeout(function(){
                         nextTest();
                     }, 60000);
                 }
-            }
+            }            
         }
         else
         {
@@ -303,7 +296,7 @@ async function SaveScore(score){
         }
     }
     else
-    {
+    {   
         // Capser Signer App is not connected
         alert("Press connect on your Capser Signer App.");
         window.casperlabsHelper.requestConnection();
@@ -320,13 +313,10 @@ async function savetHighScore(publicKey, score){
         value1: publicKey,
         value2: score
     }));
-
+    
     if (xhr.status === 200) {
         return JSON.parse(xhr.responseText);
     }
-
+    
     return "Failed";
 }
-
-
-
