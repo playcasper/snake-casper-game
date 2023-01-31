@@ -80,7 +80,7 @@ You also need [Git](https://git-scm.com/downloads) to clone the repository.
 To build the smartcontract :
 
 ```
-git clone git@github.com:playcasper/snake-casper-game.git
+git clone https://github.com/playcasper/snake-casper-game.git
 cd highscore-casper
 make prepare
 make build-contract
