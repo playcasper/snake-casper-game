@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
+require('dotenv').config({path: path.resolve(__dirname, '.env')});
+
 const app = express();
 const port = 9000;
 
@@ -13,7 +15,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 const {CasperServiceByJsonRPC, DeployUtil, decodeBase16, CLPublicKey, RuntimeArgs, CLI32, CLString } = require("casper-js-sdk");
-const casperService = new CasperServiceByJsonRPC("http://195.201.174.222:7777/rpc");
+const casperService = new CasperServiceByJsonRPC(process.env.DEPLOY_PEER);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/snake.html'));
@@ -25,7 +27,7 @@ app.get('/test', (req, res) => {
 
 // Get the highscore from the block chain
 app.post('/highscore', async (req, res) => {
-    var hash = req.body.value;
+    var hash = process.env.ACCOUNT_HASH;
     var highscore = "0";
 
     // Get the state root hash
@@ -60,7 +62,7 @@ app.post('/highscore', async (req, res) => {
 
 // Get all the scores from the block chain
 app.post('/allscores', async (req, res) => {
-    var hash = req.body.value;
+    var hash = process.env.ACCOUNT_HASH;
 
     // Get the state root hash
     const latestBlock = await casperService.getLatestBlockInfo();
@@ -96,7 +98,7 @@ app.post('/allscores', async (req, res) => {
 
 // Get the users highscore from the block chain
 app.post('/usershighscore', async (req, res) => {
-    var hash = req.body.value;
+    var hash = process.env.HIGHSCORE_HASH;
     var name = req.body.name;
 
     console.log("Name ",name)
@@ -141,7 +143,7 @@ app.post("/savehighscore", async (req, res) => {
     });
      
     // Get the contract hash
-    const contractHash = decodeBase16("a63b544149a3274ae7e4479e36951020d5c2db1750b3dd94219757b12aea5f42");
+    const contractHash = decodeBase16(process.env.CONTRACT_HASH);
 
     // Configure the deploy with entry point and payment
     const session = DeployUtil.ExecutableDeployItem.newStoredContractByHash(
@@ -150,7 +152,7 @@ app.post("/savehighscore", async (req, res) => {
         args
     );
       
-    let payment = DeployUtil.standardPayment(2000000000);
+    let payment = DeployUtil.standardPayment(process.env.SAVE_PAYMENT);
      
     const deploy = DeployUtil.makeDeploy(
         deployParams,
