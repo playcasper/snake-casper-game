@@ -60,11 +60,30 @@ Select the latest one that corresponds to highscore_set and you will see the sta
 
 ## Compiling the contract
 
-Download the code to your linux environment. The Rust code can be found in the highscore-casper folder. Compile the contract using Cargo.
+You will need the following tools installed.
+
+You can check the Casper's [documentation here](https://docs.casperlabs.io/dapp-dev-guide/writing-contracts/getting-started/)
+
+Here are the version of the tools that were used to build and run the smartcontract :
 
 ```
+rustup --version
+rustup 1.25.1 (bb60b1e89 2022-07-12)
+
+cmake --version
+cmake version 3.22.1
+
+```
+
+You also need [Git](https://git-scm.com/downloads) to clone the repository.
+
+To build the smartcontract :
+
+```
+git clone git@github.com:playcasper/snake-casper-game.git
 cd highscore-casper
-cargo build --release --target wasm32-unknown-unknown
+make prepare
+make build-contract
 ```
 
 The highscore.wasm file will be created in the folder:
@@ -74,6 +93,39 @@ The highscore.wasm file will be created in the folder:
 ```
 
 You can deploy the wasm file to your own test block-chain or use the one that has already been deployed to the testnet.cspr.live platform.
+
+## How to run the tests
+
+Follow the section above and then :
+
+```
+cd highscore-casper
+make test
+```
+The output should be something like this :
+
+```
+make test
+cd contract && cargo build --release --target wasm32-unknown-unknown
+    Finished release [optimized] target(s) in 0.08s
+wasm-strip contract/target/wasm32-unknown-unknown/release/highscore.wasm 2>/dev/null | true
+mkdir -p tests/wasm
+cp contract/target/wasm32-unknown-unknown/release/highscore.wasm tests/wasm
+cd tests && cargo test
+    Finished test [unoptimized + debuginfo] target(s) in 0.16s
+     Running unittests src/integration_tests.rs (target/debug/deps/integration_tests-3b1acdb88faa4e36)
+
+running 7 tests
+test tests::check_initial_conditions ... ok
+test tests::get_high_score_for_none_user - should panic ... ok
+test tests::set_high_score_for_new_user ... ok
+test tests::get_high_score_for_valid_user ... ok
+test tests::set_score_for_new_user_higher_than_other_user_highscore ... ok
+test tests::set_score_for_same_user_higher_than_highscore ... ok
+test tests::set_score_for_same_user_lower_than_highscore ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.15s
+```
 
 ## Running the game
 
@@ -97,29 +149,3 @@ http://localhost:9000
 ```
 
 This code points to a peer on the testnet.cspr.live where the highscore contract has been deployed. To work on a local block chain the code can be modified to point to the local address.
-
-## Unit tests
-
-Unit tests are included with the casper contract code. These perform the following
-
-1) Retrieve the current highest score.
-
-2) Retrieve all the users highest scores. This includes the overall highest score and the user who holds the highest score.
-
-3) Retrieve the highest score for the user who is currently signed in.
-
-4) Test that saving a lower score does NOT get saved as the users high score
-
-5) Test that saving a higher score DOES get saved as the users high score
-
-The tests can be run at this link on the live site:
-
-https://snake.playcasper.io/test
-
-Or here locally:
-
-```
-http://localhost:9000/test
-```
-
-<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_8.jpg" width=80% height=80%>
