@@ -127,12 +127,14 @@ test tests::set_score_for_same_user_lower_than_highscore ... ok
 test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.15s
 ```
 
-## Running the game
+## Running the game locally
 
-Make sure that Express is installed on your system:
+NodeJS and Express need to be installed to run on your Linux system:
 
 ```
 cd snake-casper-game-main
+sudo apt install nodejs
+sudo apt install npm
 npm install express
 ```
 
@@ -142,10 +144,12 @@ Using NodeJS start the game:
 node app.js
 ```
 
-Then open Google Chrome and visit the URL
+Then open Google Chrome and visit the URL:
 
 ```
 http://localhost:9000
 ```
+
+Google Chrome is necessary because Casper Signer only works with Google Chrome.
 
 This code points to a peer on the testnet.cspr.live where the highscore contract has been deployed. To work on a local block chain the code can be modified to point to the local address.
