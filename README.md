@@ -136,6 +136,7 @@ cd snake-casper-game-main
 sudo apt install nodejs
 sudo apt install npm
 npm install express
+npm install dotenv --save
 ```
 
 Using NodeJS start the game:
