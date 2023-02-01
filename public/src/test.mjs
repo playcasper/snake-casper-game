@@ -3,8 +3,6 @@ var usersHighestScore = 0;
 var deployHash = null;
 
 var testCase = 1;
-Tests();
-
 
 async function Tests(){
 
