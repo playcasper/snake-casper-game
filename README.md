@@ -154,3 +154,29 @@ http://localhost:9000
 Google Chrome is necessary because Casper Signer only works with Google Chrome.
 
 This code points to a peer on the testnet.cspr.live where the highscore contract has been deployed. To work on a local block chain the code can be modified to point to the local address.
+
+## Integration tests
+
+Unit tests are included with the casper contract code. These perform the following
+
+1) Retrieve the current highest score.
+
+2) Retrieve all the users highest scores. This includes the overall highest score and the user who holds the highest score.
+
+3) Retrieve the highest score for the user who is currently signed in.
+
+4) Test that saving a lower score does NOT get saved as the users high score
+
+5) Test that saving a higher score DOES get saved as the users high score
+
+The tests can be run at this link on the live site:
+
+https://snake.playcasper.io/test
+
+Or here locally:
+
+```
+http://localhost:9000/test
+```
+
+<img src="https://playcasper.io/wp-content/uploads/2023/01/Snake_8.jpg" width=80% height=80%>
