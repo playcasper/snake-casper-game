@@ -132,7 +132,7 @@ test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 NodeJS and Express need to be installed to run on your Linux system:
 
 ```
-cd snake-casper-game-main
+cd snake-casper-game
 sudo apt install nodejs
 sudo apt install npm
 npm install express
